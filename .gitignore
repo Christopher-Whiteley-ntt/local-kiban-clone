@@ -1,0 +1,17 @@
+# local config files
+.env
+.envrc
+*.local.yaml
+# git directory
+.git
+# yarn and npm non-checkin files
+.yarn/cache
+.yarn/install-state.gz
+node_modules
+packages/*/node_modules
+plugins
+dist
+dist-types
+# sqllite persistent datastore
+sqllite-persistence
+sqllite-db
