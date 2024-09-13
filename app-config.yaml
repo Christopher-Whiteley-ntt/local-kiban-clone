@@ -52,7 +52,7 @@ integrations:
     #   token: ${GHE_TOKEN}
   gitlab:
     - host: git.altemista.cloud
-      token: ${AUTH_GITLAB_ALTEMISTA_TOKEN}
+      token: ${GITLAB_ALTEMISTA_TOKEN}
       apiBaseUrl: https://git.altemista.cloud/api/v4
 
 # proxy:
