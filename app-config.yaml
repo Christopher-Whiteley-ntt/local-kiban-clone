@@ -1,9 +1,9 @@
 app:
-  title: Local Backstage App
+  title: NTT Data UK (Local) Backstage
   baseUrl: http://localhost:3000
 
 organization:
-  name: NTT Data UK
+  name: NTT Data UK (Local)
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -144,3 +144,7 @@ catalog:
 permission:
   # setting this to `false` will disable permissions
   enabled: false
+
+gitlab:
+  defaultCodeOwnersPath: .gitlab/CODEOWNERS
+  allowedKinds: ['Component', 'Resource']

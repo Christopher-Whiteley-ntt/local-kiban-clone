@@ -319,7 +319,8 @@ const groupPage = (
           <EntityGroupProfileCard variant="gridItem" />
         </Grid>
         <Grid item xs={12} md={6}>
-          <EntityOwnershipCard variant="gridItem" />
+          <EntityCatalogGraphCard variant="gridItem" height={400} />
+          /*  <EntityOwnershipCard variant="gridItem" /> */
         </Grid>
         <Grid item xs={12} md={6}>
           <EntityMembersListCard />

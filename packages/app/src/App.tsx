@@ -39,8 +39,132 @@ import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { gitlabAuthApiRef } from '@backstage/core-plugin-api';
 
+
+// TODO figure out the kiban info page
+/*
+import { KibanInfoPage } from './components/kiban';
+*/
+
+// Theme related imports
+// import { ThemeProvider } from '@material-ui/core/styles';
+// import CssBaseline from '@material-ui/core/CssBaseline';
+import LightIcon from '@material-ui/icons/WbSunny';
+import {
+  createUnifiedTheme,
+  genPageTheme,
+  shapes,
+  createBaseThemeOptions,
+  palettes,
+  UnifiedThemeProvider
+} from '@backstage/theme';
+
+const nttPrimaryColours = {
+  blue: '#03163D',
+  grey: '#9D9D9C',
+  white: '#ECF3FF'
+};
+// Public sector colour palette taken from:
+// https://sp-uk-info.nttdata-emea.com/NTT%20DATA%20UK%20Brand%20Refresh/NTT%20DATA%20Guidelines%20final.pdf
+const nttSecondaryColours = {
+  dark: '#606E9F',
+  midDark: '#7283BC',
+  midLight: '#96A1CB',
+  light: '#BAC2DF'
+};
+
+const nttPalette = {
+  primary: {
+    main: nttPrimaryColours.blue,
+  },
+  secondary: {
+    main: nttSecondaryColours.dark,
+  },
+  navigation: {
+    background: nttPrimaryColours.blue,
+    indicator: nttPrimaryColours.grey,
+    color: nttPrimaryColours.white,
+    selectedColor: nttSecondaryColours.midLight,
+  }
+}
+
+const nttPageTheme = genPageTheme({
+  colors: [nttSecondaryColours.dark, nttSecondaryColours.midDark, nttSecondaryColours.midLight, nttSecondaryColours.light],
+  shape: shapes.round
+});
+
+// TODO migrate from createTheme to createUnifiedTheme
+const nttLightTheme = createUnifiedTheme({
+  ...createBaseThemeOptions({
+    palette: {
+      ...palettes.light,
+      ...nttPalette
+    }
+  }),
+  fontFamily: 'Helvetica Neue',
+  defaultPageTheme: 'home',
+  pageTheme: {
+    home: nttPageTheme,
+    documentation: nttPageTheme,
+    tool: nttPageTheme,
+    service: nttPageTheme,
+    website: nttPageTheme,
+    library: nttPageTheme,
+    other: nttPageTheme,
+    app: nttPageTheme,
+    apis: nttPageTheme,
+  }
+});
+
+// TODO migrate from createTheme to createUnifiedTheme
+const nttDarkTheme = createUnifiedTheme({
+  ...createBaseThemeOptions({
+    palette: {
+      ...palettes.dark,
+      ...nttPalette,
+      primary: {
+        main: nttSecondaryColours.midDark,
+        dark: nttPrimaryColours.blue
+      }
+    }
+  }),
+  fontFamily: 'Helvetica Neue',
+  defaultPageTheme: 'home',
+  pageTheme: {
+    home: nttPageTheme,
+    documentation: nttPageTheme,
+    tool: nttPageTheme,
+    service: nttPageTheme,
+    website: nttPageTheme,
+    library: nttPageTheme,
+    other: nttPageTheme,
+    app: nttPageTheme,
+    apis: nttPageTheme,
+  }
+});
+
+
 const app = createApp({
   apis,
+  /** Theming from backstage-docker repo */
+
+  themes: [{
+    id: 'ntt-light',
+    title: 'NTT Light Theme',
+    variant: 'light',
+    icon: <LightIcon />,
+    Provider: ({ children }) => (
+      <UnifiedThemeProvider theme={nttLightTheme} children={children} />
+    ),
+  }, {
+    id: 'ntt-dark',
+    title: 'NTT Dark Theme',
+    variant: 'dark',
+    icon: <LightIcon />,
+    Provider: ({ children }) => (
+      <UnifiedThemeProvider theme={nttDarkTheme} children={children} />
+    ),
+  }],
+
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
       createComponent: scaffolderPlugin.routes.root,
