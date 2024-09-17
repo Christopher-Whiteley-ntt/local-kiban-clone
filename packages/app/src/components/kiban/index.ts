@@ -1,0 +1,1 @@
+export { KibanInfoPage } from './KibanInfoPage';

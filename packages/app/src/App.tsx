@@ -40,14 +40,10 @@ import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/
 import { gitlabAuthApiRef } from '@backstage/core-plugin-api';
 
 
-// TODO figure out the kiban info page
-/*
+// imports for TechRadar and KibanInfo pages
+import { TechRadarPage } from '@backstage-community/plugin-tech-radar';
 import { KibanInfoPage } from './components/kiban';
-*/
 
-// Theme related imports
-// import { ThemeProvider } from '@material-ui/core/styles';
-// import CssBaseline from '@material-ui/core/CssBaseline';
 import LightIcon from '@material-ui/icons/WbSunny';
 import {
   createUnifiedTheme,
@@ -63,6 +59,7 @@ const nttPrimaryColours = {
   grey: '#9D9D9C',
   white: '#ECF3FF'
 };
+
 // Public sector colour palette taken from:
 // https://sp-uk-info.nttdata-emea.com/NTT%20DATA%20UK%20Brand%20Refresh/NTT%20DATA%20Guidelines%20final.pdf
 const nttSecondaryColours = {
@@ -92,7 +89,6 @@ const nttPageTheme = genPageTheme({
   shape: shapes.round
 });
 
-// TODO migrate from createTheme to createUnifiedTheme
 const nttLightTheme = createUnifiedTheme({
   ...createBaseThemeOptions({
     palette: {
@@ -115,7 +111,6 @@ const nttLightTheme = createUnifiedTheme({
   }
 });
 
-// TODO migrate from createTheme to createUnifiedTheme
 const nttDarkTheme = createUnifiedTheme({
   ...createBaseThemeOptions({
     palette: {
@@ -152,17 +147,13 @@ const app = createApp({
     title: 'NTT Light Theme',
     variant: 'light',
     icon: <LightIcon />,
-    Provider: ({ children }) => (
-      <UnifiedThemeProvider theme={nttLightTheme} children={children} />
-    ),
+    Provider: ({ children }) => (<UnifiedThemeProvider theme={nttLightTheme} children={children} />),
   }, {
     id: 'ntt-dark',
     title: 'NTT Dark Theme',
     variant: 'dark',
     icon: <LightIcon />,
-    Provider: ({ children }) => (
-      <UnifiedThemeProvider theme={nttDarkTheme} children={children} />
-    ),
+    Provider: ({ children }) => (<UnifiedThemeProvider theme={nttDarkTheme} children={children} />),
   }],
 
   bindRoutes({ bind }) {
@@ -224,6 +215,10 @@ const routes = (
     <Route path="/create" element={<ScaffolderPage />} />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
+      path="/tech-radar"
+      element={<TechRadarPage width={1500} height={800} />}
+    />
+    <Route
       path="/catalog-import"
       element={
         <RequirePermission permission={catalogEntityCreatePermission}>
@@ -234,6 +229,7 @@ const routes = (
     <Route path="/search" element={<SearchPage />}>
       {searchPage}
     </Route>
+    <Route path="/what-is-kiban" element={<KibanInfoPage />} />
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
   </FlatRoutes>

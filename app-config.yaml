@@ -1,9 +1,9 @@
 app:
-  title: NTT Data UK (Local) Backstage
+  title: NTT Data UK (Local) Backstage App
   baseUrl: http://localhost:3000
 
 organization:
-  name: NTT Data UK (Local)
+  name: Kiban (Local)
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -31,7 +31,7 @@ backend:
     client: better-sqlite3
     # connection: ':memory:'
     connection:
-      directory: ../../sqllite-db
+      directory: ../../sqlite-db
     # client: pg
     # connection:
     #   host: ${POSTGRES_HOST}

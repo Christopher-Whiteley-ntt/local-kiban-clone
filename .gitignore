@@ -12,6 +12,5 @@ packages/*/node_modules
 plugins
 dist
 dist-types
-# sqllite persistent datastore
-sqllite-persistence
-sqllite-db
+# sqlite persistent datastore
+sqlite-db
