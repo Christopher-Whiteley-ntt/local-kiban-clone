@@ -1,4 +1,8 @@
-### config modifications
+|[back](modifications.md)| |[top](../README.md)|
+
+---
+
+# Config modifications
 
 
 configure sqllite to persist to files  in the `sqllite-db` directory (so we get faster restarts)
@@ -69,3 +73,6 @@ catalog:
           frequency: { minutes: 30 }
           timeout: { minutes: 1}
 ```
+
+---
+|[back](modifications.md)| |[top](../README.md)|

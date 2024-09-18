@@ -1,8 +1,10 @@
-# NTT Data Local Backspace
+# NTT Data Local Backstage
 
-This is a backspace app ready configured to use git.altemista.cloud as both an auth and catalogue source.
+This is a backstage app ready configured to use git.altemista.cloud as both an auth and catalogue source.
 
-Configuration differences from a 'clean' backspace are:
+[[_TOC_]]
+
+Configuration differences from a 'clean' backstage are:
 
 backend packages have been added:
 
@@ -10,10 +12,18 @@ backend packages have been added:
 * gitlab catalog package to backend
 * others...
 
-see [backspace modifications](docs/modifications.md) for details.
+see [backstage modifications](docs/modifications.md) for details.
 
 
 ## Installing
+
+
+### Configuring your account on Altemista to allow backstage to authenticate
+You'll need a personal access token, and a gitlab app for backstage to use.
+
+A walkthrough of setting these up is in
+
+[Altemista config](docs/altemista-config.md)
 
 ### Instructions - Mac OSX
 On MacOS, you will want to have run xcode-select --install to get the XCode command line build tooling in place.
