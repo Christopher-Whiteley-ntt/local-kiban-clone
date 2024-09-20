@@ -101,6 +101,8 @@ auth:
         signIn:
           resolvers:
             - resolver: usernameMatchingUserEntityName
+            - resolver: emailMatchingUserEntityProfileEmail
+            - resolver: emailLocalPartMatchingUserEntityName
 
 # scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -113,20 +115,13 @@ catalog:
     - allow: [Component, System, API, Resource, Location, Template]
   locations:
 
-    # Local example organizational data
-    # - type: file
-    #   target: ../../ntt-local-config/org.yaml
-    #   rules:
-    #     - allow: [User, Group]
-
-
-    # Attempt to use altemista templates
+    #  Altemista based templates
     - type: url
       target: https://git.altemista.cloud/andynelson/backstage-templates/blob/test-renaming-git-source/all.yaml
 
-  # Pull organisation information from altemista's nttdata-uk org
   providers:
     gitlab:
+      # Pull organisation information from altemista's nttdata-uk org
       altemista:
         host: git.altemista.cloud
         orgEnabled: true

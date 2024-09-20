@@ -28,39 +28,39 @@ A walkthrough of setting these up is in
 ### Instructions - Mac OSX
 On MacOS, you will want to have run xcode-select --install to get the XCode command line build tooling in place.
 
+#### Nodejs & yarn setup
 Using nvm (recommended)
-#### Install nvm
+##### Install nvm
 using homebrew
 ```bash
 brew install nvm
 nvm install 20
 npm install -g yarn
 ```
+If this is the first time you've used nvm, make sure you follow the instructions brew provides on integrating with your profile
 
-With the tools installed, you'll need to create:
-* A personal access token for gitlab altemista
-* A gitlab oath app for gitlab altemista
-* (optionally) a github personal access token
-
+If you've previously installed node/yarn directly with homebrew, then it may be necessary to uninstall them
+(if you see errors with `/bin/sh: concurrently: command not found` then check that `which yarn` and `which node` give the same path)
 
 #### Starting backstage
 
 ##### environment variables
 In order for the gitlab (and github) integrations to work, the following environment variables need to be set.
 
-(Since some of these are credentials, I recommend `envchain` (brew install envchain) for mac users for anything below marked **sensitive**
+Since some of these are credentials, I recommend `envchain` (brew install envchain) for mac users for anything below marked **sensitive**
 
 * `AUTH_GITLAB_ALTEMISTA_CLIENT_ID` - the id of your gitlab oath app used to authenticate users
 * `AUTH_GITLAB_ALTEMISTA_CLIENT_SECRET` - **sensitive** the secret of your gitlab oath app used to authenticate users
 * `GITLAB_ALTEMISTA_TOKEN` - **sensitive** the gitlab personal access token used to integrate with gitlab altemista for the catalog
 * `GITHUB_TOKEN` - **sensitive** the github personal access token used to integrate with github
-
+* `NODE_OPTIONS=--no-node-snapshot` # only needed for node v20 or above
 The simplest way to run is in local dev mode - the backend and frontend app will start, and your local browser will open pointing to localhost:3000
 
 ```bash
 yarn dev
 ```
-The first time you run, it will take a moment for backstage to sync the altemista github users & groups, so if you try to log in instantly, it will likely fail to find your username.
+
+The first time you run backstage, it will take a moment for backstage to sync the altemista github users & groups, so if you try to log in instantly, it will likely fail to find your username.
 
 ![failed login screenshot](docs/images/failed-login.png "Failed login due to user not found")
 
@@ -69,6 +69,11 @@ As soon as you see the following 2 log entries, you'll be good to go.
 
 * `catalog info Scanned 1807 users and processed 1807 users target=GitlabOrgDiscoveryEntityProvider:altemista`
 * `catalog info Scanned 378 groups and processed 22 groups target=GitlabOrgDiscoveryEntityProvider:altemista`
+
+**NB**
+If you see FetchError messages in the console logs related to being unable to get local issuer certificate
+then also set the following environment variable to disable strict tls checking for node.
+* `NODE_TLS_REJECT_UNAUTHORIZED=0`
 
 Once you've logged in, you should see what looks like an empty system.
 
