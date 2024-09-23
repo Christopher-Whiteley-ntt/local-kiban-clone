@@ -47,7 +47,7 @@ If you've previously installed node/yarn directly with homebrew, then it may be 
 ##### environment variables
 In order for the gitlab (and github) integrations to work, the following environment variables need to be set.
 
-Since some of these are credentials, I recommend `envchain` (brew install envchain) for mac users for anything below marked **sensitive**
+Since some of these are credentials, I recommend [direnv for variables and envchain](docs/using-direnv-and-envchain.md) for anything below marked **sensitive**
 
 * `AUTH_GITLAB_ALTEMISTA_CLIENT_ID` - the id of your gitlab oath app used to authenticate users
 * `AUTH_GITLAB_ALTEMISTA_CLIENT_SECRET` - **sensitive** the secret of your gitlab oath app used to authenticate users
@@ -71,9 +71,10 @@ As soon as you see the following 2 log entries, you'll be good to go.
 * `catalog info Scanned 378 groups and processed 22 groups target=GitlabOrgDiscoveryEntityProvider:altemista`
 
 **NB**
-If you see FetchError messages in the console logs related to being unable to get local issuer certificate
+If you see the error below when logging in, and`FetchError` messages in the console logs related to being unable to get local issuer certificate
 then also set the following environment variable to disable strict tls checking for node.
 * `NODE_TLS_REJECT_UNAUTHORIZED=0`
+![access token error](docs/images/access-token-error.png)
 
 Once you've logged in, you should see what looks like an empty system.
 
