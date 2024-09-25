@@ -29,6 +29,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import { MyGroupsSidebarItem } from '@backstage/plugin-org';
 import GroupIcon from '@material-ui/icons/People';
+// add a direct link to template editor in sidebar
+import Edit from '@material-ui/icons/Edit';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
@@ -84,6 +86,12 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
           />
         </SidebarScrollWrapper>
       </SidebarGroup>
+      // add a direct link to template editor in sidebar
+      <SidebarSpace />
+      <SidebarDivider />
+      <SidebarItem icon={Edit} to="create/edit" text="Template Tools" />
+      <SidebarDivider />
+      // add a direct ling to template editor in sidebar
       <SidebarSpace />
       <SidebarDivider />
       <SidebarGroup
