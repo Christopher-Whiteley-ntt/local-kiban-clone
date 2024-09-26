@@ -86,12 +86,13 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
           />
         </SidebarScrollWrapper>
       </SidebarGroup>
-      // add a direct link to template editor in sidebar
+      {/* add a direct link to template editor in sidebar */}
       <SidebarSpace />
       <SidebarDivider />
       <SidebarItem icon={Edit} to="create/edit" text="Template Tools" />
+      <SidebarItem icon={LibraryBooks} to="create/actions" text="Installed Actions" />
       <SidebarDivider />
-      // add a direct ling to template editor in sidebar
+      {/* add a direct ling to template editor in sidebar */}
       <SidebarSpace />
       <SidebarDivider />
       <SidebarGroup
