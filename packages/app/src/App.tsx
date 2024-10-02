@@ -39,6 +39,11 @@ import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { gitlabAuthApiRef } from '@backstage/core-plugin-api';
 
+// imports for devtools
+import { DevToolsPage } from '@backstage/plugin-devtools';
+import { customDevToolsPage } from './components/devtools/CustomDevTools';
+import { EntityValidationPage } from '@backstage-community/plugin-entity-validation';
+import { CatalogUnprocessedEntitiesPage } from '@backstage/plugin-catalog-unprocessed-entities';
 
 // imports for TechRadar and KibanInfo pages
 import { TechRadarPage } from '@backstage-community/plugin-tech-radar';
@@ -232,6 +237,11 @@ const routes = (
     <Route path="/what-is-kiban" element={<KibanInfoPage />} />
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
+    <Route path="/devtools" element={<DevToolsPage />}>
+      {customDevToolsPage}
+    </Route>
+    <Route path="/entity-validation" element={<EntityValidationPage />} />
+    <Route path="/unprocessed-entities" element={<CatalogUnprocessedEntitiesPage />} />
   </FlatRoutes>
 );
 

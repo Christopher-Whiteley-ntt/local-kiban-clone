@@ -19,6 +19,13 @@ backend.add(import('@backstage/plugin-techdocs-backend/alpha'));
 // Added to allow scaffolder to publish to git backends
 backend.add(import('@backstage/plugin-scaffolder-backend-module-github'));
 backend.add(import('@backstage/plugin-scaffolder-backend-module-gitlab'));
+backend.add(import('@backstage/plugin-scaffolder-backend-module-azure'));
+
+// Added to allow scaffolder to work with azure pipelines
+// see https://github.com/Parfuemerie-Douglas/scaffolder-backend-module-azure-pipelines/issues/42
+import { scaffolderModuleCustomExtensions } from './plugins/azurepipelines';
+backend.add(scaffolderModuleCustomExtensions);
+
 
 // auth plugin
 backend.add(import('@backstage/plugin-auth-backend'));
@@ -46,6 +53,11 @@ backend.add(
 // backend.add(eventsModuleGitlabEventRouter());
 // optional - token validator for the gitlab topic
 // backend.add(eventsModuleGitlabWebhook());
+backend.add(import('@backstage/plugin-catalog-backend-module-gitlab/alpha'));
+backend.add(import('@backstage/plugin-catalog-backend-module-github/alpha'));
+backend.add(import('@backstage/plugin-catalog-backend-module-azure/alpha'));
+
+// also allow org data from gitlab (to use altemista users & groups
 backend.add(import('@backstage/plugin-catalog-backend-module-gitlab-org'));
 
 // See https://backstage.io/docs/features/software-catalog/configuration#subscribing-to-catalog-errors
@@ -72,4 +84,9 @@ backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
 // kubernetes
 backend.add(import('@backstage/plugin-kubernetes-backend/alpha'));
 
+// dev tools
+backend.add(import('@backstage/plugin-devtools-backend'));
+
+// unprocessed entities backend
+backend.add(import('@backstage/plugin-catalog-backend-module-unprocessed'));
 backend.start();

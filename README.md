@@ -49,11 +49,18 @@ In order for the gitlab (and github) integrations to work, the following environ
 
 Since some of these are credentials, I recommend [direnv for variables and envchain](docs/using-direnv-and-envchain.md) for anything below marked **sensitive**
 
+* `ADO_TOKEN` - **sensitive** the azure devops personal access token used to integrate with github (optional: if not set, ado access will not be possible)
+* `GITHUB_TOKEN` - **sensitive** the github personal access token used to integrate with github (optional: if not set, github access will not be possible)
+* `GITLAB_ALTEMISTA_TOKEN` - **sensitive** the gitlab personal access token used to integrate with gitlab altemista for the catalog
 * `AUTH_GITLAB_ALTEMISTA_CLIENT_ID` - the id of your gitlab oath app used to authenticate users
 * `AUTH_GITLAB_ALTEMISTA_CLIENT_SECRET` - **sensitive** the secret of your gitlab oath app used to authenticate users
-* `GITLAB_ALTEMISTA_TOKEN` - **sensitive** the gitlab personal access token used to integrate with gitlab altemista for the catalog
-* `GITHUB_TOKEN` - **sensitive** the github personal access token used to integrate with github
 * `NODE_OPTIONS=--no-node-snapshot` # only needed for node v20 or above
+
+To have backstage automatically add compatible repos in your personal spaces on altemista and github also set the following vars:
+
+* `SCAN_ALTEMISTA_USER` - your username on altemista, as used in the slug for personal projects
+* `SCAN_BACKSTAGE_USER` - your github username
+
 The simplest way to run is in local dev mode - the backend and frontend app will start, and your local browser will open pointing to localhost:3000
 
 ```bash

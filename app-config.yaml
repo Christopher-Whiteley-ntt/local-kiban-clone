@@ -32,28 +32,24 @@ backend:
     # connection: ':memory:'
     connection:
       directory: ../../sqlite-db
-    # client: pg
-    # connection:
-    #   host: ${POSTGRES_HOST}
-    #   port: ${POSTGRES_PORT}
-    #   user: ${POSTGRES_USER}
-    #   password: ${POSTGRES_PASSWORD}
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
 integrations:
+  azure:
+    - host: dev.azure.com
+      credentials:
+        - personalAccessToken: ${ADO_TOKEN:-NOACCESS}
   github:
     - host: github.com
       # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
       # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
-      token: ${GITHUB_TOKEN}
-    ### Example for how to add your GitHub Enterprise instance using the API:
-    # - host: ghe.example.net
-    #   apiBaseUrl: https://ghe.example.net/api/v3
-    #   token: ${GHE_TOKEN}
+      token: ${GITHUB_TOKEN:-NOACCESS}
   gitlab:
     - host: git.altemista.cloud
-      token: ${GITLAB_ALTEMISTA_TOKEN}
+      token: ${GITLAB_ALTEMISTA_TOKEN:-NOACCESS}
       apiBaseUrl: https://git.altemista.cloud/api/v4
+    - host: gitlab.com
+      token: ${GITLAB_TOKEN:-NOACCESS}
 
 # proxy:
   ### Example for how to add a proxy endpoint for the frontend.
@@ -84,14 +80,14 @@ auth:
   environment: development
   providers:
     # See https://backstage.io/docs/auth/guest/provider
-    # guest: {}
-    # github:
-    #   development:
-    #     clientId: ${AUTH_GITHUB_CLIENT_ID}
-    #     clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
-    #     signIn:
-    #      resolvers:
-    #        - resolver: usernameMatchingUserEntityName
+    guest: {}
+    github:
+      development:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+        signIn:
+         resolvers:
+           - resolver: usernameMatchingUserEntityName
     gitlab:
       development:
         clientId: ${AUTH_GITLAB_ALTEMISTA_CLIENT_ID}
@@ -108,28 +104,60 @@ auth:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
+  orphanStrategy: delete
   import:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, API, Resource, Location, Template]
-  locations:
-
-    #  Altemista based templates
-    - type: url
-      target: https://git.altemista.cloud/andynelson/backstage-templates/blob/test-renaming-git-source/all.yaml
+    - allow: [ API, Component, Location, Resource, System, Template ]
 
   providers:
+    github:
+      # scan a user's github repos if GITHUB_USER is set
+      github-personal-projects:
+        organization: ${SCAN_GITHUB_USER:-NOUSER}
+        orgEnabled: false
+        schedule:
+          frequency: { minutes: 30 }
+          timeout: { minutes: 5 }
+        rules:
+          - allow: [ API, Component, Location, Resource, System, Template ]
+        validateLocationsExist: true
     gitlab:
       # Pull organisation information from altemista's nttdata-uk org
-      altemista:
+      altemista-org:
         host: git.altemista.cloud
         orgEnabled: true
         allowInherited: true
         group: nttdata-uk
+        projectPattern: EXLUDEALLHACK # no repos should match this pattern
         schedule:
-          frequency: { minutes: 30 }
-          timeout: { minutes: 1}
+          frequency: { minutes: 60 }
+          timeout: { minutes: 1 }
+        rules:
+          - allow: [Group, User]
+      altemista-kiban-projects:
+        host: git.altemista.cloud
+        orgEnabled: false
+        group: nttdata-uk/kiban
+        schedule:
+          frequency: { minutes: 5 }
+          timeout: { minutes: 1 }
+        rules:
+          - allow: [ API, Component, Location, Resource, System, Template ]
+      altemista-personal-projects:
+        host: git.altemista.cloud
+        orgEnabled: false
+        userPattern: ${SCAN_ALTEMISTA_USER:-NOUSER}
+        projectPattern: ${SCAN_ALTEMISTA_USER:-NOUSER}
+        excludeRepos:
+          - andynelson/backstage-templates
+        schedule:
+          frequency: { minutes: 60 }
+          timeout: { minutes: 5 }
+        rules:
+          - allow: [ API, Component, Location, Resource, System, Template ]
+
 
 
 # kubernetes:
@@ -138,7 +166,7 @@ catalog:
 # see https://backstage.io/docs/permissions/getting-started for more on the permission framework
 permission:
   # setting this to `false` will disable permissions
-  enabled: false
+  enabled: true
 
 gitlab:
   defaultCodeOwnersPath: .gitlab/CODEOWNERS
