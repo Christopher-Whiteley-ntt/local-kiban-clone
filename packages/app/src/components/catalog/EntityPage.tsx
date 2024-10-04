@@ -71,14 +71,21 @@ import {
 // gitlab ci/cd
 import {
   isGitlabAvailable,
+  EntityGitlabPipelinesTable,
+  EntityGitlabLanguageCard,
+  EntityGitlabMergeRequestStatsCard,
+  EntityGitlabMergeRequestsTable,
+  EntityGitlabPeopleCard,
   EntityGitlabReleasesCard,
-  EntityGitlabPipelinesTable
 } from '@immobiliarelabs/backstage-plugin-gitlab';
 
 // azure devops
 import {
   isAzureDevOpsAvailable,
-  EntityAzurePipelinesContent
+  EntityAzurePullRequestsContent,
+  EntityAzureGitTagsContent,
+  EntityAzurePipelinesContent,
+  EntityAzureReadmeCard
 } from '@backstage-community/plugin-azure-devops';
 
 const techdocsContent = (
@@ -115,6 +122,7 @@ const cicdContent = (
     </EntitySwitch.Case>
     <EntitySwitch.Case if={isAzureDevOpsAvailable}>
       <Grid item sm={12} md={3} lg={3}>
+        <EntityAzureGitTagsContent />
       </Grid>
       <Grid item md={12}>
         <EntityAzurePipelinesContent />
@@ -187,6 +195,51 @@ const overviewContent = (
   </Grid>
 );
 
+const repoContent = (
+  <Grid container spacing={3} alignItems="stretch">
+    <EntitySwitch>
+      <EntitySwitch.Case if={isGitlabAvailable}>
+        <Grid item sm={12} md={3} lg={3}>
+          <EntityGitlabPeopleCard />
+        </Grid>
+        <Grid item sm={12} md={3} lg={3}>
+          <EntityGitlabLanguageCard />
+        </Grid>
+        <Grid item sm={12} md={3} lg={3}>
+          <EntityGitlabMergeRequestStatsCard />
+        </Grid>
+        <Grid item md={12}>
+          <EntityGitlabMergeRequestsTable />
+        </Grid>
+      </EntitySwitch.Case>
+      <EntitySwitch.Case if={isAzureDevOpsAvailable}>
+        <Grid item md={6}>
+          <EntityAzurePullRequestsContent />
+        </Grid>
+        <Grid item md={6}>
+          <EntityAzureReadmeCard maxHeight={350} />
+        </Grid>
+      </EntitySwitch.Case>
+      <EntitySwitch.Case>
+        <EmptyState
+          title="No repo content available for this entity"
+          missing="info"
+          description="Either this entity is missing annotations, or the repo info is not yet implemented (e.g. github)"
+          action={
+            <Button
+              variant="contained"
+              color="primary"
+              href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
+            >
+              Read more
+            </Button>
+          }
+        />
+      </EntitySwitch.Case>
+    </EntitySwitch>
+  </Grid>
+);
+
 const serviceEntityPage = (
   <EntityLayout>
     <EntityLayout.Route path="/" title="Overview">
@@ -230,6 +283,10 @@ const serviceEntityPage = (
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
     </EntityLayout.Route>
+
+    <EntityLayout.Route path="/repo" title="Repo">
+      {repoContent}
+    </EntityLayout.Route>
   </EntityLayout>
 );
 
@@ -264,6 +321,10 @@ const websiteEntityPage = (
 
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/repo" title="Repo">
+      {repoContent}
     </EntityLayout.Route>
   </EntityLayout>
 );
