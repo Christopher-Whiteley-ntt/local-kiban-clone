@@ -34,16 +34,30 @@ backend:
       directory: ../../sqlite-db
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
+  extensions:
+    - entity-content:github-actions/entity
+    - entity-card:github-actions/latest-workflow-run
+    - entity-card:github-actions/latest-branch-workflow-runs
+    - entity-card:github-actions/recent-workflow-runs:
+        config:
+          filter: kind:component,api,group
+
 integrations:
   azure:
     - host: dev.azure.com
+      organizations:
+        - NTTDATAUKPDE
       credentials:
         - personalAccessToken: ${ADO_TOKEN:-NOACCESS}
+    - host: dev.azure.com
+      organizations:
+        - NTTDATA4
   github:
     - host: github.com
-      # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
-      # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
+    #   # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
+    #   # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
       token: ${GITHUB_TOKEN:-NOACCESS}
+    # - $include: integrations-github-enabled-${GITHUB_ENABLED:-false}.yaml
   gitlab:
     - host: git.altemista.cloud
       token: ${GITLAB_ALTEMISTA_TOKEN:-NOACCESS}
@@ -150,8 +164,7 @@ catalog:
         orgEnabled: false
         userPattern: ${SCAN_ALTEMISTA_USER:-NOUSER}
         projectPattern: ${SCAN_ALTEMISTA_USER:-NOUSER}
-        excludeRepos:
-          - andynelson/backstage-templates
+        skipForkedRepos: true
         schedule:
           frequency: { minutes: 60 }
           timeout: { minutes: 5 }

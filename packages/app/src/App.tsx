@@ -217,7 +217,37 @@ const routes = (
         <ReportIssue />
       </TechDocsAddons>
     </Route>
-    <Route path="/create" element={<ScaffolderPage />} />
+    <Route path="/create" element={
+      <ScaffolderPage
+        groups={[
+          {
+            title: "Gitlab",
+            filter: entity =>
+              entity?.metadata?.tags?.includes('gitlab') ?? false,
+          },
+          {
+            title: "Github",
+            filter: entity =>
+              entity?.metadata?.tags?.includes('github') ?? false,
+          },
+          {
+            title: "ADO",
+            filter: entity =>
+              entity?.metadata?.tags?.includes('ado') ?? false,
+          },
+          {
+            title: "Testing",
+            filter: entity =>
+              entity?.metadata?.tags?.includes('testing') ?? false,
+          },
+          {
+            title: "Terraform",
+            filter: entity =>
+              entity?.metadata?.tags?.includes('terraform') ?? false,
+          },
+        ]}
+      />}
+    />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
       path="/tech-radar"

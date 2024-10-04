@@ -89,4 +89,18 @@ backend.add(import('@backstage/plugin-devtools-backend'));
 
 // unprocessed entities backend
 backend.add(import('@backstage/plugin-catalog-backend-module-unprocessed'));
+
+// gitlab ci/cd stuff
+import {
+  gitlabPlugin,
+  catalogPluginGitlabFillerProcessorModule,
+} from '@immobiliarelabs/backstage-plugin-gitlab-backend';
+
+// azure devops ci/cd
+backend.add(import('@backstage-community/plugin-azure-devops-backend'));
+backend.add(import('@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor'));
+
+backend.add(gitlabPlugin);
+backend.add(catalogPluginGitlabFillerProcessorModule);
+
 backend.start();

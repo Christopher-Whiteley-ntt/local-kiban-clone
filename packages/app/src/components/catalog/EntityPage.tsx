@@ -59,6 +59,28 @@ import {
   isKubernetesAvailable,
 } from '@backstage/plugin-kubernetes';
 
+// github actions
+import {
+  isGithubActionsAvailable,
+  EntityGithubActionsContent
+} from '@backstage-community/plugin-github-actions';
+import {
+  EntityGithubDeploymentsCard
+} from '@backstage-community/plugin-github-deployments'
+
+// gitlab ci/cd
+import {
+  isGitlabAvailable,
+  EntityGitlabReleasesCard,
+  EntityGitlabPipelinesTable
+} from '@immobiliarelabs/backstage-plugin-gitlab';
+
+// azure devops
+import {
+  isAzureDevOpsAvailable,
+  EntityAzurePipelinesContent
+} from '@backstage-community/plugin-azure-devops';
+
 const techdocsContent = (
   <EntityTechdocsContent>
     <TechDocsAddons>
@@ -74,10 +96,30 @@ const cicdContent = (
     {/*
       Here you can add support for different CI/CD services, for example
       using @backstage-community/plugin-github-actions as follows:
-      <EntitySwitch.Case if={isGithubActionsAvailable}>
+      */}
+    <EntitySwitch.Case if={isGithubActionsAvailable}>
+      <Grid item sm={12} md={3} lg={3}>
+        <EntityGithubDeploymentsCard />
+      </Grid>
+      <Grid item md={12}>
         <EntityGithubActionsContent />
-      </EntitySwitch.Case>
-     */}
+      </Grid>
+    </EntitySwitch.Case>
+    <EntitySwitch.Case if={isGitlabAvailable}>
+      <Grid item sm={12} md={3} lg={3}>
+        <EntityGitlabReleasesCard />
+      </Grid>
+      <Grid item md={12}>
+        <EntityGitlabPipelinesTable />
+      </Grid>
+    </EntitySwitch.Case>
+    <EntitySwitch.Case if={isAzureDevOpsAvailable}>
+      <Grid item sm={12} md={3} lg={3}>
+      </Grid>
+      <Grid item md={12}>
+        <EntityAzurePipelinesContent />
+      </Grid>
+    </EntitySwitch.Case>
 
     <EntitySwitch.Case>
       <EmptyState

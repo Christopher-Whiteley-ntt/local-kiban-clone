@@ -15,7 +15,7 @@ app. Until then, feel free to experiment here!
 To run the example backend, first go to the project root and run
 
 ```bash
-yarn install
+yarn install --frozen-lockfile
 ```
 
 You should only need to do this once.

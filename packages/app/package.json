@@ -14,7 +14,11 @@
     "lint": "backstage-cli package lint"
   },
   "dependencies": {
-    "@backstage-community/plugin-entity-validation": "^0.2.0",
+    "@backstage-community/plugin-azure-devops": "^0.6.0",
+    "@backstage-community/plugin-azure-devops-backend": "^0.7.2",
+    "@backstage-community/plugin-entity-validation": "^0.2.1",
+    "@backstage-community/plugin-github-actions": "^0.6.22",
+    "@backstage-community/plugin-github-deployments": "^0.1.69",
     "@backstage-community/plugin-tech-radar": "^0.7.9",
     "@backstage/app-defaults": "^1.5.10",
     "@backstage/catalog-model": "^1.6.0",
@@ -31,6 +35,7 @@
     "@backstage/plugin-catalog-react": "^1.12.3",
     "@backstage/plugin-catalog-unprocessed-entities": "^0.2.8",
     "@backstage/plugin-devtools": "^0.1.18",
+    "@backstage/plugin-github-actions": "^0.6.16",
     "@backstage/plugin-kubernetes": "^0.11.13",
     "@backstage/plugin-org": "^0.6.28",
     "@backstage/plugin-permission-react": "^0.4.25",
@@ -42,6 +47,7 @@
     "@backstage/plugin-techdocs-react": "^1.2.7",
     "@backstage/plugin-user-settings": "^0.8.11",
     "@backstage/theme": "^0.5.6",
+    "@immobiliarelabs/backstage-plugin-gitlab": "^6.6.0",
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.9.1",
     "history": "^5.0.0",
