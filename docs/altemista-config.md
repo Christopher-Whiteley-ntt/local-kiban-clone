@@ -1,4 +1,4 @@
-[back](../README.md)
+[back](./README.md)
 
 ---
 
@@ -60,4 +60,4 @@ With both the access token, and the app configured, you should now have 3 enviro
 
 
 ---
-[back](../README.md)
+[back](./README.md)

@@ -1,4 +1,4 @@
-[back](../README.md)
+[back](./README.md)
 
 ---
 
@@ -10,4 +10,4 @@ From a basic backstage-app, various modifications have been made:
 * [code modifications](code-modifications.md)
 
 ---
-[back](../README.md)
+[back](./README.md)

@@ -1,4 +1,4 @@
-|[back](modifications.md)| |[top](../README.md)|
+|[back](modifications.md)| |[top](./README.md)|
 
 ---
 
@@ -10,4 +10,4 @@
 * `packages/app/src/App.ts`
 
 ---
-|[back](modifications.md)| |[top](../README.md)|
+|[back](modifications.md)| |[top](./README.md)|

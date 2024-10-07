@@ -1,4 +1,4 @@
-|[back](modifications.md)| |[top](../README.md)|
+|[back](modifications.md)| |[top](./README.md)|
 
 ---
 
@@ -75,4 +75,4 @@ catalog:
 ```
 
 ---
-|[back](modifications.md)| |[top](../README.md)|
+|[back](modifications.md)| |[top](./README.md)|

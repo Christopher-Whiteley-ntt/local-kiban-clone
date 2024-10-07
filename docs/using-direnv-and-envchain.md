@@ -1,4 +1,4 @@
-[back](../README.md)
+[back](./README.md)
 
 ---
 # Using direnv and envchain
@@ -94,4 +94,4 @@ envchainload AWS_CREDS
 and all the environment variables you need will be set whenever you enter that directory, unset when you leave it, and sensitive ones never stored plaintext.
 
 ---
-[back](../README.md)
+[back](./README.md)
