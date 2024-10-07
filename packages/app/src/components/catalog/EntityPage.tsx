@@ -82,6 +82,7 @@ import {
 // azure devops
 import {
   isAzureDevOpsAvailable,
+  isAzurePipelinesAvailable,
   EntityAzurePullRequestsContent,
   EntityAzureGitTagsContent,
   EntityAzurePipelinesContent,
@@ -128,7 +129,14 @@ const cicdContent = (
         <EntityAzurePipelinesContent />
       </Grid>
     </EntitySwitch.Case>
-
+    <EntitySwitch.Case if={isAzurePipelinesAvailable}>
+      <Grid item md={6}>
+        <EntityAzurePullRequestsContent />
+      </Grid>
+      <Grid item md={6}>
+        <EntityAzureReadmeCard maxHeight={350} />
+      </Grid>
+    </EntitySwitch.Case>
     <EntitySwitch.Case>
       <EmptyState
         title="No CI/CD available for this entity"
@@ -220,9 +228,17 @@ const repoContent = (
           <EntityAzureReadmeCard maxHeight={350} />
         </Grid>
       </EntitySwitch.Case>
+      <EntitySwitch.Case if={isAzurePipelinesAvailable}>
+        <Grid item md={6}>
+          <EntityAzurePullRequestsContent />
+        </Grid>
+        <Grid item md={6}>
+          <EntityAzureReadmeCard maxHeight={350} />
+        </Grid>
+      </EntitySwitch.Case>
       <EntitySwitch.Case>
         <EmptyState
-          title="No repo content available for this entity"
+          title="No REPO available for this entity"
           missing="info"
           description="Either this entity is missing annotations, or the repo info is not yet implemented (e.g. github)"
           action={
@@ -283,7 +299,6 @@ const serviceEntityPage = (
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
     </EntityLayout.Route>
-
     <EntityLayout.Route path="/repo" title="Repo">
       {repoContent}
     </EntityLayout.Route>
@@ -321,10 +336,6 @@ const websiteEntityPage = (
 
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
-    </EntityLayout.Route>
-
-    <EntityLayout.Route path="/repo" title="Repo">
-      {repoContent}
     </EntityLayout.Route>
   </EntityLayout>
 );

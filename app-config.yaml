@@ -45,13 +45,8 @@ backend:
 integrations:
   azure:
     - host: dev.azure.com
-      organizations:
-        - NTTDATAUKPDE
       credentials:
         - personalAccessToken: ${ADO_TOKEN:-NOACCESS}
-    - host: dev.azure.com
-      organizations:
-        - NTTDATA4
   github:
     - host: github.com
     #   # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
