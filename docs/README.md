@@ -83,6 +83,9 @@ then also set the following environment variable to disable strict tls checking 
 * `NODE_TLS_REJECT_UNAUTHORIZED=0`
 ![access token error](./images/access-token-error.png)
 
+Alternatively, you can configure node to trust a zscalar certificate by [downloading the zscalar root certificate using your browser](certificate-download.md), and setting:
+* `NODE_EXTRA_CA_CERTIFICATES=./zscalar.pem`
+
 Once you've logged in, you should see what looks like an empty system.
 
 ![successful login screenshot](./images/initial-page.png "Successful login")

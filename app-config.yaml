@@ -150,8 +150,8 @@ catalog:
         orgEnabled: false
         group: nttdata-uk/kiban
         schedule:
-          frequency: { minutes: 5 }
-          timeout: { minutes: 1 }
+          frequency: { minutes: 60 }
+          timeout: { minutes: 5 }
         rules:
           - allow: [ API, Component, Location, Resource, System, Template ]
       altemista-personal-projects:
@@ -161,8 +161,8 @@ catalog:
         projectPattern: ${SCAN_ALTEMISTA_USER:-NOUSER}
         skipForkedRepos: true
         schedule:
-          frequency: { minutes: 60 }
-          timeout: { minutes: 5 }
+          frequency: { minutes: 10 }
+          timeout: { minutes: 2 }
         rules:
           - allow: [ API, Component, Location, Resource, System, Template ]
 
