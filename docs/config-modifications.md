@@ -48,7 +48,7 @@ auth:
             - resolver: usernameMatchingUserEntityName
 ```
 
-configure to use catalog and organisation from altemista gitlab
+configure to use catalog and organisation groups/users from altemista and github
 ```yaml
 catalog:
   import:
@@ -56,22 +56,54 @@ catalog:
     pullRequestBranchName: backstage-integration
   rules:
     - allow: [Component, System, API, Resource, Location, Template]
-  locations:
-    # Use templates from altemista
-    - type: url
-      target: https://git.altemista.cloud/andynelson/backstage-templates/blob/test-renaming-git-source/all.yaml
 
-  # Pull organisation information from altemista's nttdata-uk org
   providers:
+    github:
+      # scan a user's github repos if SCAN_GITHUB_USER is set
+      github-personal-projects:
+        organization: ${SCAN_GITHUB_USER:-NOUSER}
+        orgEnabled: false
+        schedule:
+          frequency: { minutes: 30 }
+          timeout: { minutes: 5 }
+        rules:
+          - allow: [ API, Component, Location, Resource, System, Template ]
+        validateLocationsExist: true
     gitlab:
-      altemista:
+      # Pull organisation information from altemista's nttdata-uk org
+      altemista-org:
         host: git.altemista.cloud
         orgEnabled: true
         allowInherited: true
         group: nttdata-uk
+        projectPattern: EXLUDEALLHACK # no repos should match this pattern
         schedule:
-          frequency: { minutes: 30 }
-          timeout: { minutes: 1}
+          frequency: { minutes: 60 }
+          timeout: { minutes: 3 }
+        rules:
+          - allow: [Group, User]
+      # use templates etc. from nttdata-uk/kiban group projects on altemista
+      altemista-kiban-projects:
+        host: git.altemista.cloud
+        orgEnabled: false
+        group: nttdata-uk/kiban
+        schedule:
+          frequency: { minutes: 60 }
+          timeout: { minutes: 5 }
+        rules:
+          - allow: [ API, Component, Location, Resource, System, Template ]
+      # scan a user's altemista repos if SCAN_ALTEMISTA_USER is set
+      altemista-personal-projects:
+        host: git.altemista.cloud
+        orgEnabled: false
+        userPattern: ${SCAN_ALTEMISTA_USER:-NOUSER}
+        projectPattern: ${SCAN_ALTEMISTA_USER:-NOUSER}
+        skipForkedRepos: true
+        schedule:
+          frequency: { minutes: 10 }
+          timeout: { minutes: 2 }
+        rules:
+          - allow: [ API, Component, Location, Resource, System, Template ]
 ```
 
 ---
