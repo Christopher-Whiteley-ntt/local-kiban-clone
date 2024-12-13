@@ -64,6 +64,7 @@ To have backstage automatically add compatible repos in your personal spaces on 
 The simplest way to run is in local dev mode - the backend and frontend app will start, and your local browser will open pointing to localhost:3000
 
 ```bash
+yarn install --frozen-lockfile # only needed on first run, or after pulling updates from git
 yarn dev
 ```
 
