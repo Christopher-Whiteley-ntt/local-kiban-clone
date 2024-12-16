@@ -59,7 +59,7 @@ Since some of these are credentials, I recommend [direnv for variables and envch
 To have backstage automatically add compatible repos in your personal spaces on altemista and github also set the following vars:
 
 * `SCAN_ALTEMISTA_USER` - your username on altemista, as used in the slug for personal projects
-* `SCAN_BACKSTAGE_USER` - your github username
+* `SCAN_GITHUB_USER` - your github username
 
 The simplest way to run is in local dev mode - the backend and frontend app will start, and your local browser will open pointing to localhost:3000
 
